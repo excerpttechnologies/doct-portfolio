@@ -1,0 +1,85 @@
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Play, Tv, Radio, Newspaper } from "lucide-react";
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery4 from "@/assets/gallery-4.jpg";
+
+const media = [
+  { title: "The Writer's Journey — In Conversation", platform: "Doordarshan", type: "TV Interview", img: gallery1, icon: Tv },
+  { title: "Literature & Governance: A Dual Life", platform: "All India Radio", type: "Radio Interview", img: gallery4, icon: Radio },
+  { title: "Keynote at National Book Festival 2022", platform: "YouTube", type: "Public Lecture", img: gallery1, icon: Play },
+  { title: "Profile: The Scholar-Administrator", platform: "The Hindu", type: "Feature Article", img: gallery4, icon: Newspaper },
+];
+
+const MediaSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section id="media" className="section-padding bg-background" ref={ref}>
+      <div className="container mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12"
+        >
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0em" }}
+            animate={isInView ? { opacity: 1, letterSpacing: "0.2em" } : {}}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-gold uppercase text-sm font-medium mb-2"
+          >
+            Press & Media
+          </motion.p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground">
+            Media & <span className="text-gold">Interviews</span>
+          </h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="w-24 h-0.5 bg-gold mx-auto mt-4 origin-center"
+          />
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {media.map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 30, x: i % 2 === 0 ? -20 : 20 }}
+              animate={isInView ? { opacity: 1, y: 0, x: 0 } : {}}
+              transition={{ delay: 0.3 + i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.3 } }}
+              className="group flex gap-4 bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-border hover:border-gold/30 cursor-pointer"
+            >
+              <div className="relative w-40 flex-shrink-0 overflow-hidden">
+                <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+                <div className="absolute inset-0 bg-navy/50 flex items-center justify-center group-hover:bg-navy/30 transition-colors">
+                  <motion.div
+                    whileHover={{ scale: 1.2 }}
+                    animate={{ boxShadow: ["0 0 0 0 hsla(40,52%,54%,0.4)", "0 0 0 15px hsla(40,52%,54%,0)", "0 0 0 0 hsla(40,52%,54%,0)"] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="w-12 h-12 rounded-full bg-gold/90 flex items-center justify-center"
+                  >
+                    <Play size={20} className="text-navy ml-0.5" fill="currentColor" />
+                  </motion.div>
+                </div>
+              </div>
+              <div className="p-5 flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-2">
+                  <item.icon size={14} className="text-gold" />
+                  <span className="text-gold text-xs font-medium uppercase tracking-wider">{item.type}</span>
+                </div>
+                <h3 className="font-heading font-semibold text-foreground leading-snug group-hover:text-gold transition-colors">{item.title}</h3>
+                <p className="text-muted-foreground text-sm mt-1">{item.platform}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default MediaSection;
