@@ -5,12 +5,13 @@ import gallery1 from "@/assets/img1.png";
 import gallery2 from "@/assets/img2.png";
 import gallery3 from "@/assets/img3.png";
 import gallery4 from "@/assets/gallery-4.jpg";
+import gallery6 from "@/assets/gallery6.jpg";
 
 const images = [
   { src: gallery1, title: "Keynote Address at Literary Festival", span: "md:col-span-2 md:row-span-2" },
   { src: gallery3, title: "Receiving the Rajyotsava Award", span: "" },
   { src: gallery2, title: "Book Launch Event", span: "" },
-
+{ src: gallery6, title: "Book Launch Event", span: "" },
   { src: gallery4, title: "With Fellow Writers at Sahitya Sammelan", span: "" },
   { src: gallery3, title: "Cultural Address at Hampi", span: "" },
 ];

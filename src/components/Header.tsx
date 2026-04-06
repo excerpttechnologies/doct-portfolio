@@ -139,97 +139,34 @@
 
 // export default Header;
 
-
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 const navItems = [
-  { label: "About", id: "about" },
-  { label: "Works", id: "works" },
-  { label: "Publications", id: "publications" },
-  { label: "Philosophy", id: "philosophy" },
-  { label: "Career", id: "career" },
-  { label: "Awards", href: "/awards" }, // ✅ separate page
-  { label: "Gallery", id: "gallery" },
-  { label: "Events", id: "events" },
-  { label: "Media", id: "media" },
-  { label: "Blog", id: "blog" },
-  { label: "Contact", id: "contact" },
+  { label: "About",        href: "/about" },
+  { label: "Works",        href: "/works" },
+  { label: "Publications", href: "/publications" },
+  { label: "Philosophy",   href: "/philosophy" },
+  { label: "Career",       href: "/career" },
+  { label: "Awards",       href: "/awards" },
+  { label: "Gallery",      href: "/gallery" },
+  { label: "Events",       href: "/events" },
+  { label: "Media",        href: "/media" },
+  { label: "Blog",         href: "/blog" },
+  { label: "Contact",      href: "/contact" },
 ];
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
-const navigate = useNavigate();
-  // const scrollToSection = useCallback((id: string) => {
-  //   const el = document.getElementById(id);
-  //   if (el) {
-  //     const headerOffset = 80;
-  //     const elementPosition =
-  //       el.getBoundingClientRect().top + window.scrollY;
+  const navigate = useNavigate();
 
-  //     window.scrollTo({
-  //       top: elementPosition - headerOffset,
-  //       behavior: "smooth",
-  //     });
-  //   }
-  //   setMobileOpen(false);
-  // }, []);
-const scrollToSection = useCallback((id: string) => {
-  if (window.location.pathname !== "/") {
-    navigate("/");
-
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) {
-        const headerOffset = 80;
-        const elementPosition =
-          el.getBoundingClientRect().top + window.scrollY;
-
-        window.scrollTo({
-          top: elementPosition - headerOffset,
-          behavior: "smooth",
-        });
-      }
-    }, 300);
-  } else {
-    const el = document.getElementById(id);
-    if (el) {
-      const headerOffset = 80;
-      const elementPosition =
-        el.getBoundingClientRect().top + window.scrollY;
-
-      window.scrollTo({
-        top: elementPosition - headerOffset,
-        behavior: "smooth",
-      });
-    }
-  }
-
-  setMobileOpen(false);
-}, [navigate]);
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      const ids = navItems
-        .filter((item) => item.id) // ❗ avoid href items
-        .map((item) => item.id);
-
-      for (const id of [...ids].reverse()) {
-        const el = document.getElementById(id!);
-        if (el && el.getBoundingClientRect().top <= 120) {
-          setActiveSection(id!);
-          break;
-        }
-      }
-    };
-
+    const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -237,57 +174,30 @@ const scrollToSection = useCallback((id: string) => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-navy/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
+        scrolled ? "bg-navy/95 backdrop-blur-md shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-3">
         {/* Logo */}
-        <button
-          onClick={() =>
-            window.scrollTo({ top: 0, behavior: "smooth" })
-          }
-          className="font-heading text-lg md:text-xl font-bold text-gold cursor-pointer"
-        >
-          Dr. K. G. Lakshmi Narayanappa
-        </button>
+        <Link to="/" className="font-heading text-lg md:text-xl font-bold text-gold cursor-pointer">
+          Dr. K. G. LAKSHMI NARAYANAPPA
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden xl:flex items-center gap-0.5">
-          {navItems.map((item) =>
-            item.href ? (
-              <Link key={item.label} to={item.href}>
-                <span className="px-2.5 py-2 text-xs font-medium cursor-pointer text-primary-foreground/80 hover:text-gold transition-all duration-300">
-                  {item.label}
-                </span>
-              </Link>
-            ) : (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id!)}
-                className={`px-2.5 py-2 text-xs font-medium transition-all duration-300 rounded-md relative cursor-pointer ${
-                  activeSection === item.id
+          {navItems.map((item) => (
+            <Link key={item.label} to={item.href}>
+              <span
+                className={`px-2.5 py-2 text-xs font-medium cursor-pointer transition-all duration-300 rounded-md block relative ${
+                  typeof window !== "undefined" && window.location.pathname === item.href
                     ? "text-gold"
                     : "text-primary-foreground/80 hover:text-gold"
                 }`}
               >
                 {item.label}
-
-                {activeSection === item.id && (
-                  <motion.div
-                    layoutId="activeNav"
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-gold rounded-full"
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  />
-                )}
-              </button>
-            )
-          )}
+              </span>
+            </Link>
+          ))}
         </nav>
 
         {/* Mobile Toggle */}
@@ -296,10 +206,7 @@ const scrollToSection = useCallback((id: string) => {
           className="xl:hidden text-primary-foreground p-2"
           aria-label="Toggle menu"
         >
-          <motion.div
-            animate={{ rotate: mobileOpen ? 90 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
+          <motion.div animate={{ rotate: mobileOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </motion.div>
         </button>
@@ -323,27 +230,11 @@ const scrollToSection = useCallback((id: string) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.04, duration: 0.3 }}
                 >
-                  {item.href ? (
-                    <Link to={item.href}>
-                      <span
-                        onClick={() => setMobileOpen(false)}
-                        className="block px-4 py-3 text-left font-medium rounded-md cursor-pointer text-primary-foreground/80 hover:text-gold hover:bg-gold/5"
-                      >
-                        {item.label}
-                      </span>
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => scrollToSection(item.id!)}
-                      className={`w-full px-4 py-3 text-left font-medium transition-colors rounded-md cursor-pointer ${
-                        activeSection === item.id
-                          ? "text-gold bg-gold/10"
-                          : "text-primary-foreground/80 hover:text-gold hover:bg-gold/5"
-                      }`}
-                    >
+                  <Link to={item.href} onClick={() => setMobileOpen(false)}>
+                    <span className="block px-4 py-3 text-left font-medium rounded-md cursor-pointer text-primary-foreground/80 hover:text-gold hover:bg-gold/5 transition-colors">
                       {item.label}
-                    </button>
-                  )}
+                    </span>
+                  </Link>
                 </motion.div>
               ))}
             </div>
