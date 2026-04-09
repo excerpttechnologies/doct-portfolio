@@ -707,6 +707,7 @@ const images = [
   { src: gallery22, title: "Book Launch Event" },
   { src: gallery23, title: "Book Launch Event" },
   { src: gallery24, title: "Book Launch Event" },
+  { src: gallery25, title: "Book Launch Event" },
   { src: gallery26, title: "Book Launch Event" },
   { src: gallery27, title: "Book Launch Event" },
   { src: gallery28, title: "Book Launch Event" },
@@ -730,6 +731,8 @@ const images = [
   { src: gallery46, title: "Book Launch Event" },
   { src: gallery47, title: "Book Launch Event" },
   { src: gallery48, title: "Book Launch Event" },
+  { src: gallery49, title: "Book Launch Event" },
+  { src: gallery50, title: "Book Launch Event" },
   
 ];
 

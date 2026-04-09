@@ -98,35 +98,37 @@ import { Play, Tv, Radio, Newspaper, ExternalLink } from "lucide-react";
 import gallery32 from "@/assets/gallery32.jpg";
 import gallery4 from "@/assets/gallery4.jpg";
 
+import media2 from "@/assets/media2.jpg";
+
+
 const media = [
   {
-    title: "The Writer's Journey — In Conversation",
-    platform: "Doordarshan",
-    type: "TV Interview",
+    title: "Dr. KG Lakshminarayanappa Sir ",
+    platform: "75th Birthday Celebrations held 13.1.2026 At Gandhi Bhavan, Bengaluru",
+    type: "Public Felicitation Function / Book Release Event",
     img: gallery32,
     icon: Tv,
     url: "https://youtu.be/Pa6hDNKcGfk?si=AVWBgXH3VH_xEGUq",
   },
   {
-    title: "Literature & Governance: A Dual Life",
-    platform: "All India Radio",
-    type: "Radio Interview",
-    img: gallery4,
+    title: "Abhinandana Samithi and Annapoorna Publishing House, Brought out 'Nisvartha Siri' Abhinandana Grantha",
+    platform: "Dr. KG Lakshminarayanappa Sir 75th Birthday Celebrations held 13.1.2026 At Gandhi Bhavan, Bengaluru",
+    type: "Public Felicitation Function / Book Release Event",
+    img: media2,
     icon: Radio,
     url: "https://youtu.be/AffJc2TxR8k?si=o7AucBcZEd_S61Ez",
   },
   {
-    title: "Keynote at National Book Festival 2022",
-    platform: "YouTube",
-    type: "Public Lecture",
-    img: gallery32,
+    title: "Abhinandana Samithi and Annapoorna Publishing House, Brought out 'Nisvartha Siri' ",
+    type: "Public Felicitation Function / Book Release Event",
+    img: media2,
     icon: Play,
     url: "https://youtu.be/7cluX9ZGolk?si=1U4-hMvHOorDBrYj",
   },
   {
-    title: "Profile: The Scholar-Administrator",
+    title: "Abhinandana Grantha (Book) and Abhinandana to Dr.K.G.Lakshminarayanappa Sir,  on 13th January 2026, at Gandhi Bhavana, Bengaluru.",
     platform: "The Hindu",
-    type: "Feature Article",
+    type: "Public Felicitation Function / Book Release Event",
     img: gallery4,
     icon: Newspaper,
     url: "https://youtube.com/live/rMSzjYGHaI0?feature=share",
@@ -136,9 +138,9 @@ const media = [
 // Navigation categories
 const navItems = [
   { id: "all", label: "All Media" },
-  { id: "video", label: "Video Interviews" },
-  { id: "audio", label: "Audio" },
-  { id: "print", label: "Print" },
+  // { id: "video", label: "Video Interviews" },
+  // { id: "audio", label: "Audio" },
+  // { id: "print", label: "Print" },
 ];
 
 const MediaSection = () => {
@@ -259,7 +261,7 @@ const MediaSection = () => {
                 <p className="text-muted-foreground text-sm mt-1">{item.platform}</p>
                 <div className="flex items-center gap-1 mt-2 text-xs text-gold/70 group-hover:text-gold transition-colors">
                   <ExternalLink size={12} />
-                  <span>Watch / Read</span>
+                  <span>Watch </span>
                 </div>
               </div>
             </motion.div>

@@ -3187,6 +3187,559 @@
 
 
 
+// import { useState, useRef, useEffect, useCallback } from "react";
+// import { motion, useInView, AnimatePresence } from "framer-motion";
+// import { BookOpen, FileText, Feather, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
+// import bookCover1 from "@/assets/book1.jpeg";
+// import bookCover2 from "@/assets/book2.jpeg";
+// import bookCover3 from "@/assets/book3.jpeg";
+// import bookCover4 from "@/assets/book4.jpeg";
+// import bookCover5 from "@/assets/book5.jpeg";
+// import bookCover6 from "@/assets/book6.jpeg";
+
+// /* ─────────────────────────────────────────
+//    THEME TOKENS — darkened for readability on cream/light backgrounds
+// ───────────────────────────────────────── */
+// const T = {
+//   title:   "#1a0f07",        // very dark brown — was #2c1810 (too light)
+//   body:    "#3d2410",        // dark brown — was #5a3e2b
+//   muted:   "#5c3d22",        // medium brown — was #7a6652
+//   gold:    "#8a5e00",        // deep dark gold — was #b8860b (too pale on cream)
+//   goldBg:  "rgba(138,94,0,0.10)",
+//   goldBd:  "rgba(138,94,0,0.40)",
+//   divider: "rgba(138,94,0,0.35)",
+//   cardBg:  "rgba(0,0,0,0.05)",
+//   cardBd:  "rgba(138,94,0,0.20)",
+// };
+
+// /* ─────────────────────────────────────────
+//    DATA — descriptions and book names without spaces
+// ───────────────────────────────────────── */
+// const tabs = [
+//   { id: "books",    label: "Books",    icon: BookOpen },
+//   { id: "articles", label: "Articles", icon: FileText },
+ 
+// ];
+
+// const booksWithCovers = [
+//   { title: "Devarayanadurga Divyadarshan", year: "", desc: "Essays on the intersection of public service, ethics, and the role of literature in shaping civil society.", cover: bookCover6 },
+//   { title: "Tumkur District Temples",      year: "", desc: "A sweeping narrative exploring the moral fabric of rural Karnataka, blending folklore with modern dilemmas.", cover: bookCover1 },
+//   { title: "Weaver Culture and History",   year: "", desc: "Essays on public service, ethics, and the role of literature in shaping civil society.", cover: bookCover5 },
+//   { title: "My Mind, My People",           year: "", desc: "Essays on the intersection of public service, ethics, and the role of literature in shaping civil society.", cover: bookCover3 },
+//   { title: "Silver Bowl",                  year: "", desc: "A poetry collection celebrating the landscapes, seasons, and spiritual rhythms of the Deccan plateau.", cover: bookCover2 },
+//   { title: "Seasons of Memory",            year: "", desc: "Essays on the intersection of public service, ethics, and cultural memory.", cover: bookCover4 },
+// ];
+
+// const booksWithoutCovers = [
+//   { title: "Kannada Grammar" },
+//   { title: "Srikshetra Shivagange" },
+//   { title: "Mahalakshmi Kshetra Goravanahalli" },
+//   { title: "Srikshetra Sidharbetta" },
+//   { title: "Sri Kamakshi Sharadamba, Hebbar" },
+//   { title: "Vidyashankar Temple" },
+//   { title: "Siddaganga Mahakshetra" },
+//   { title: "Minchakal Gollahalli Anjaneyaswamy" },
+//   { title: "Sheebi Lakshminarayana Swamy" },
+//   { title: "Uddhana Veerabhadraswamy, Halenijagallu" },
+//   { title: "Sri Lakshmi Narasimhaswamy, Doddadalivattu" },
+//   { title: "Araluguppe Channakesavaswamy" },
+//   { title: "Mallikarjunaswamy, Pankajahalli" },
+//   { title: "Yogamadhavaswamy, Shettigere" },
+//   { title: "Kedareshwar Temple, Nagalapuram" },
+//   { title: "Vighnasante Temples" },
+//   { title: "Nonavinakere Temples" },
+//   { title: "Kodiyala Padmashali History and Culture" },
+//   { title: "History & Culture of Traditional Weavers of South India" },
+// ];
+
+// const articles = [
+//  { title: "Public Inspiration for the Change That Is Needed", venue: "", year: "" },
+//   { title: "Subheeksha (Prosperity / Well-being)", venue: "", year: "" },
+//   { title: "India Today", venue: "India Today", year: "" },
+//   { title: "Samyukta Karnataka (Special Article)", venue: "Samyukta Karnataka", year: "" },
+//   { title: "E Sanje (Special Report)", venue: "E Sanje", year: "" },
+//   { title: "Vijayavani Article", venue: "Vijayavani", year: "" }, 
+//   { title: "Special Magazine Feature Article", venue: "Special Magazine", year: "" },
+// ];
+
+
+
+// /* ─────────────────────────────────────────
+//    BOOKSHELF SLIDER
+// ───────────────────────────────────────── */
+// /* ─────────────────────────────────────────
+//    BOOKSHELF SLIDER
+// ───────────────────────────────────────── */
+// const BookshelfSlider = () => {
+//   const [current, setCurrent] = useState(0);
+//   const [isPlaying, setIsPlaying] = useState(true);
+//   const [isFlipping, setIsFlipping] = useState(false);
+//   const timerRef = useRef(null);
+//   const TOTAL = booksWithCovers.length;
+//   const AUTO_MS = 4000;
+
+//   const goTo = useCallback((idx) => {
+//     if (isFlipping) return;
+//     setIsFlipping(true);
+//     setTimeout(() => { setCurrent(idx); setIsFlipping(false); }, 500);
+//   }, [isFlipping]);
+
+//   const next = useCallback(() => goTo((current + 1) % TOTAL), [current, goTo, TOTAL]);
+//   const prev = useCallback(() => goTo((current - 1 + TOTAL) % TOTAL), [current, goTo, TOTAL]);
+
+//   useEffect(() => {
+//     if (!isPlaying) { clearInterval(timerRef.current); return; }
+//     timerRef.current = setInterval(next, AUTO_MS);
+//     return () => clearInterval(timerRef.current);
+//   }, [isPlaying, next]);
+
+//   const book = booksWithCovers[current];
+
+//   const getStyle = (idx) => {
+//     const offset = ((idx - current + TOTAL) % TOTAL + TOTAL) % TOTAL;
+//     const normalized = offset > TOTAL / 2 ? offset - TOTAL : offset;
+//     const abs = Math.abs(normalized);
+//     const sign = Math.sign(normalized) || 1;
+//     if (abs === 0) return { zIndex: 30, x: "0%",             scale: 1,    opacity: 1,    rotateY: 0,          blur: 0 };
+//     if (abs === 1) return { zIndex: 20, x: `${sign * 62}%`,  scale: 0.82, opacity: 0.8,  rotateY: sign * -22, blur: 0 };
+//     if (abs === 2) return { zIndex: 10, x: `${sign * 105}%`, scale: 0.65, opacity: 0.5,  rotateY: sign * -35, blur: 1 };
+//     return             { zIndex:  5, x: `${sign * 135}%`, scale: 0.50, opacity: 0.15, rotateY: sign * -45, blur: 2 };
+//   };
+
+//   /* ── Flower Rangoli SVG ── */
+//   const FlowerRangoli = () => (
+//     <svg
+//       viewBox="0 0 120 120"
+//       xmlns="http://www.w3.org/2000/svg"
+//       style={{ width: 72, height: 72, flexShrink: 0, opacity: 0.82 }}
+//     >
+//       <g transform="translate(60,60)">
+//         {/* outer ring — 8 petals offset 22.5° */}
+//         {[22.5,67.5,112.5,157.5,202.5,247.5,292.5,337.5].map((deg, i) => (
+//           <ellipse
+//             key={`o${i}`}
+//             cx="0" cy="-32" rx="4" ry="9"
+//             fill="#fbd5df" opacity="0.38"
+//             transform={`rotate(${deg})`}
+//           />
+//         ))}
+//         {/* inner ring — 8 petals */}
+//         {[0,45,90,135,180,225,270,315].map((deg, i) => (
+//           <ellipse
+//             key={`i${i}`}
+//             cx="0" cy="-18" rx="5" ry="10"
+//             fill="#f9c8d4" opacity="0.58"
+//             transform={`rotate(${deg})`}
+//           />
+//         ))}
+//         {/* tiny dot ring */}
+//         {[0,45,90,135,180,225,270,315].map((deg, i) => (
+//           <circle
+//             key={`d${i}`}
+//             cx={Math.round(Math.sin((deg * Math.PI) / 180) * 10)}
+//             cy={Math.round(-Math.cos((deg * Math.PI) / 180) * 10)}
+//             r="1.2"
+//             fill="#f7a8bf" opacity="0.55"
+//           />
+//         ))}
+//         {/* centre */}
+//         <circle r="6" fill="#f7b6c8" opacity="0.75" />
+//         <circle r="3" fill="#fde8ee" opacity="1" />
+//       </g>
+//     </svg>
+//   );
+
+//   return (
+//     <div className="w-full flex flex-col gap-14">
+
+//       {/* ── MAIN ROW: LEFT books | CENTER rangoli | RIGHT info+controls ── */}
+//       <div
+//         className="w-full max-w-5xl mx-auto"
+//         style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: "0 32px" }}
+//       >
+
+//         {/* ── LEFT: book carousel ── */}
+//         <div style={{ display: "flex", justifyContent: "flex-end" }}>
+//           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+//             <div
+//               className="relative flex items-center justify-center"
+//               style={{ width: 420, height: 310, perspective: 1200 }}
+//             >
+//               {booksWithCovers.map((b, idx) => {
+//                 const s = getStyle(idx);
+//                 return (
+//                   <motion.div
+//                     key={b.title}
+//                     className="absolute cursor-pointer"
+//                     style={{ width: 180, transformStyle: "preserve-3d" }}
+//                     animate={{
+//                       x: s.x, scale: s.scale, opacity: s.opacity,
+//                       rotateY: s.rotateY, filter: `blur(${s.blur}px)`, zIndex: s.zIndex,
+//                     }}
+//                     transition={{ duration: 0.65, ease: [0.34, 1.1, 0.64, 1] }}
+//                     onClick={() => { if (idx !== current) goTo(idx); }}
+//                   >
+//                     <div className="relative" style={{ width: 180, height: 262 }}>
+//                       <div
+//                         className="absolute left-0 top-0 bottom-0 w-4 rounded-l-sm z-10"
+//                         style={{ background: "linear-gradient(to right, #0d0700, rgba(0,0,0,0.7), transparent)" }}
+//                       />
+//                       <div
+//                         className="absolute right-0 top-1 bottom-1 w-3 rounded-r z-10"
+//                         style={{ background: "repeating-linear-gradient(to bottom,#f5ead0 0,#f5ead0 1.2px,#ddc898 1.2px,#ddc898 2.4px)" }}
+//                       />
+//                       <div
+//                         className="absolute inset-0 rounded-r-md overflow-hidden"
+//                         style={{
+//                           boxShadow: idx === current
+//                             ? "inset 3px 0 10px rgba(0,0,0,0.35), 6px 12px 40px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2)"
+//                             : "inset 2px 0 6px rgba(0,0,0,0.25), 4px 8px 20px rgba(0,0,0,0.2)",
+//                         }}
+//                       >
+//                         <img src={b.cover} alt={b.title} className="w-full h-full object-cover" loading="lazy" />
+//                         <div
+//                           className="absolute inset-0 pointer-events-none"
+//                           style={{ boxShadow: "inset 6px 0 18px rgba(0,0,0,0.2)" }}
+//                         />
+//                       </div>
+//                     </div>
+//                   </motion.div>
+//                 );
+//               })}
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* ── CENTER: flower rangoli ── */}
+//         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+//           <FlowerRangoli />
+//           {/* thin vertical line above and below */}
+//           <div style={{ width: 1, height: 48, background: "rgba(249,200,212,0.45)" }} />
+//         </div>
+
+//         {/* ── RIGHT: book info + nav controls ── */}
+//         <div style={{ display: "flex", justifyContent: "flex-start" }}>
+//           <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 380, width: "100%" }}>
+
+//             {/* Book info */}
+//             <AnimatePresence mode="wait">
+//               <motion.div
+//                 key={current}
+//                 initial={{ opacity: 0, x: 28 }}
+//                 animate={{ opacity: 1, x: 0 }}
+//                 exit={{ opacity: 0, x: -18 }}
+//                 transition={{ duration: 0.42 }}
+//                 style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 28 }}
+//               >
+//                 <p
+//                   style={{
+//                     fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase",
+//                     color: T.gold, fontFamily: "Georgia, serif", fontWeight: 600, margin: 0,
+//                   }}
+//                 >
+//                   {String(current + 1).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
+//                 </p>
+//                 <h3
+//                   style={{
+//                     fontSize: "clamp(1.3rem,2.5vw,1.75rem)", fontWeight: 500, lineHeight: 1.25,
+//                     color: T.title, fontFamily: "Georgia, serif", margin: 0,
+//                   }}
+//                 >
+//                   {book.title}
+//                 </h3>
+//                 <div style={{ width: 48, height: 1, background: T.gold }} />
+//                 <span
+//                   style={{
+//                     display: "inline-block", alignSelf: "flex-start",
+//                     padding: "3px 12px", borderRadius: 999, fontSize: 11,
+//                     letterSpacing: "0.1em", fontWeight: 600,
+//                     background: T.goldBg, border: `1px solid ${T.goldBd}`,
+//                     color: T.gold, fontFamily: "Georgia, serif",
+//                   }}
+//                 >
+//                   {book.year}
+//                 </span>
+//                 <p
+//                   style={{
+//                     fontSize: 13, lineHeight: 1.75, color: T.body,
+//                     fontFamily: "Georgia, serif", fontStyle: "italic", margin: 0,
+//                   }}
+//                 >
+//                   {book.desc}
+//                 </p>
+//               </motion.div>
+//             </AnimatePresence>
+
+//             {/* Nav controls */}
+//             <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+//               <button
+//                 onClick={prev}
+//                 style={{
+//                   width: 36, height: 36, borderRadius: "50%", display: "flex",
+//                   alignItems: "center", justifyContent: "center", cursor: "pointer",
+//                   border: `1px solid ${T.goldBd}`, background: T.goldBg, color: T.gold,
+//                   transition: "background 0.2s",
+//                 }}
+//                 onMouseEnter={e => e.currentTarget.style.background = "rgba(138,94,0,0.18)"}
+//                 onMouseLeave={e => e.currentTarget.style.background = T.goldBg}
+//               >
+//                 <ChevronLeft size={16} />
+//               </button>
+
+//               {/* dots */}
+//               <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+//                 {booksWithCovers.map((_, i) => (
+//                   <button
+//                     key={i}
+//                     onClick={() => goTo(i)}
+//                     style={{
+//                       width: i === current ? 22 : 7, height: 7,
+//                       borderRadius: 999, cursor: "pointer", padding: 0,
+//                       background: i === current ? T.gold : "rgba(138,94,0,0.30)",
+//                       border: `1px solid ${T.goldBd}`,
+//                       transition: "all 0.3s",
+//                     }}
+//                   />
+//                 ))}
+//               </div>
+
+//               <button
+//                 onClick={next}
+//                 style={{
+//                   width: 36, height: 36, borderRadius: "50%", display: "flex",
+//                   alignItems: "center", justifyContent: "center", cursor: "pointer",
+//                   border: `1px solid ${T.goldBd}`, background: T.goldBg, color: T.gold,
+//                   transition: "background 0.2s",
+//                 }}
+//                 onMouseEnter={e => e.currentTarget.style.background = "rgba(138,94,0,0.18)"}
+//                 onMouseLeave={e => e.currentTarget.style.background = T.goldBg}
+//               >
+//                 <ChevronRight size={16} />
+//               </button>
+
+//               <button
+//                 onClick={() => setIsPlaying(p => !p)}
+//                 style={{
+//                   width: 36, height: 36, borderRadius: "50%", display: "flex",
+//                   alignItems: "center", justifyContent: "center", cursor: "pointer",
+//                   border: `1px solid rgba(138,94,0,0.25)`,
+//                   background: "rgba(138,94,0,0.06)", color: T.gold,
+//                   transition: "background 0.2s",
+//                 }}
+//                 onMouseEnter={e => e.currentTarget.style.background = "rgba(138,94,0,0.15)"}
+//                 onMouseLeave={e => e.currentTarget.style.background = "rgba(138,94,0,0.06)"}
+//               >
+//                 {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+//               </button>
+//             </div>
+
+//             {/* progress bar */}
+//             {isPlaying && (
+//               <div
+//                 style={{
+//                   width: 140, height: 2, borderRadius: 999, overflow: "hidden",
+//                   background: "rgba(138,94,0,0.15)", marginTop: 10,
+//                 }}
+//               >
+//                 <motion.div
+//                   key={`${current}-${isPlaying}`}
+//                   style={{ height: "100%", borderRadius: 999, background: T.gold }}
+//                   initial={{ width: "0%" }}
+//                   animate={{ width: "100%" }}
+//                   transition={{ duration: AUTO_MS / 1000, ease: "linear" }}
+//                 />
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* ── Also Published ── */}
+//       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+//         <div className="flex items-center gap-4 mb-8">
+//           <div className="flex-1 h-px" style={{ background: T.divider }} />
+//           <p className="text-xs tracking-widest uppercase font-semibold"
+//             style={{ color: T.gold, fontFamily: "Georgia, serif" }}>
+//             Also Published
+//           </p>
+//           <div className="flex-1 h-px" style={{ background: T.divider }} />
+//         </div>
+
+//         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 max-w-5xl mx-auto">
+//           {booksWithoutCovers.map((book, i) => (
+//             <motion.div
+//               key={book.title}
+//               initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
+//               transition={{ duration: 0.4, delay: i * 0.03 }}
+//               whileHover={{ x: 4 }}
+//               className="flex items-start gap-3 px-4 py-2.5 rounded-lg group cursor-default transition-all duration-200"
+//               style={{ background: "transparent" }}
+//               onMouseEnter={e => e.currentTarget.style.background = "rgba(138,94,0,0.06)"}
+//               onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+//             >
+//               <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: T.gold }} />
+//               <div>
+//                 <p className="text-xs font-semibold leading-snug transition-colors duration-200 group-hover:text-amber-800"
+//                   style={{ fontFamily: "Georgia, serif", color: T.body }}>
+//                   {book.title}
+//                 </p>
+//                 <p className="text-xs mt-0.5 font-medium" style={{ color: T.muted }}></p>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </motion.div>
+//     </div>
+//   );
+// };
+
+// /* ─────────────────────────────────────────
+//    ARTICLE CARD
+// ───────────────────────────────────────── */
+// const ArticleCard = ({ article, index }) => (
+//   <motion.div
+//     initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}
+//     transition={{ duration: 0.5, delay: index * 0.1 }}
+//     whileHover={{ x: 8, transition: { duration: 0.2 } }}
+//     className="flex items-start gap-4 rounded-xl p-5 cursor-pointer group transition-all duration-300"
+//     style={{ background: T.cardBg, border: `1px solid ${T.cardBd}` }}
+//     onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(138,94,0,0.45)"}
+//     onMouseLeave={e => e.currentTarget.style.borderColor = T.cardBd}
+//   >
+//     <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+//       style={{ background: T.goldBg, border: `1px solid ${T.goldBd}` }}>
+//       <FileText size={16} style={{ color: T.gold }} />
+//     </div>
+//     <div>
+//       <h4 className="font-semibold text-sm leading-snug transition-colors duration-300 group-hover:text-amber-800"
+//         style={{ fontFamily: "Georgia, serif", color: T.title }}>{article.title}</h4>
+//       <p className="text-xs mt-1 font-medium" style={{ color: T.muted }}>
+//         {article.venue &&  <span style={{ color: T.gold }}>{article.year}</span>}
+//       </p>
+//     </div>
+//   </motion.div>
+// );
+
+// /* ─────────────────────────────────────────
+//    POEM CARD
+// ───────────────────────────────────────── */
+// const PoemCard = ({ poem, index }) => (
+//   <motion.div
+//     initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
+//     transition={{ duration: 0.6, delay: index * 0.15 }}
+//     whileHover={{ y: -6, transition: { duration: 0.3 } }}
+//     className="rounded-xl p-7 text-center relative overflow-hidden group cursor-default"
+//     style={{ background: T.cardBg, border: `1px solid ${T.cardBd}` }}
+//   >
+//     {[["top-3 left-3","borderTop","borderLeft"],["top-3 right-3","borderTop","borderRight"],
+//       ["bottom-3 left-3","borderBottom","borderLeft"],["bottom-3 right-3","borderBottom","borderRight"]].map(([pos,a,b],i) => (
+//       <div key={i} className={`absolute ${pos} w-4 h-4 pointer-events-none`}
+//         style={{ [a]: `1px solid ${T.goldBd}`, [b]: `1px solid ${T.goldBd}` }} />
+//     ))}
+//     <motion.div initial={{ rotate: 0 }} whileHover={{ rotate: 12 }} transition={{ duration: 0.3 }} className="inline-flex mb-4">
+//       <Feather size={20} style={{ color: T.gold }} />
+//     </motion.div>
+//     <h4 className="text-base font-semibold mb-4 transition-colors duration-300 group-hover:text-amber-800"
+//       style={{ fontFamily: "Georgia, serif", color: T.title }}>{poem.title}</h4>
+//     <div className="w-8 h-px mx-auto mb-4" style={{ background: T.divider }} />
+//     <p className="text-xs leading-relaxed italic"
+//       style={{ color: T.body, fontFamily: "Georgia, serif" }}>
+//       {poem.excerpt}
+//     </p>
+//   </motion.div>
+// );
+
+// /* ─────────────────────────────────────────
+//    MAIN SECTION
+// ───────────────────────────────────────── */
+// const LiteraryWorksSection = () => {
+//   const [activeTab, setActiveTab] = useState("books");
+//   const ref = useRef(null);
+//   const isInView = useInView(ref, { once: true, amount: 0 });
+
+//   return (
+//     <section id="works" ref={ref} className="relative py-24 overflow-hidden">
+//       <div className="container mx-auto px-4 relative z-10">
+
+//         {/* Header */}
+//         <motion.div initial={{ opacity: 0, y: 40 }} animate={isInView ? { opacity: 1, y: 0 } : {}}
+//           transition={{ duration: 0.9 }} className="text-center mb-14">
+//           <motion.p
+//             initial={{ opacity: 0, letterSpacing: "0em" }}
+//             animate={isInView ? { opacity: 1, letterSpacing: "0.22em" } : {}}
+//             transition={{ duration: 1.1, delay: 0.2 }}
+//             className="text-xs font-bold uppercase mb-3"
+//             style={{ color: T.gold, fontFamily: "Georgia, serif" }}>
+//             Bibliography
+//           </motion.p>
+//           <h2 className="text-4xl md:text-5xl font-medium mb-4"
+//             style={{ fontFamily: "Georgia, serif", color: T.title, letterSpacing: "-0.01em" }}>
+//             Literary <span style={{ color: T.gold, fontStyle: "italic" }}>Works</span>
+//           </h2>
+//           <motion.div initial={{ scaleX: 0 }} animate={isInView ? { scaleX: 1 } : {}}
+//             transition={{ duration: 0.9, delay: 0.6 }}
+//             className="w-20 h-px mx-auto origin-center"
+//             style={{ background: `linear-gradient(to right, transparent, ${T.gold}, transparent)` }} />
+//         </motion.div>
+
+//         {/* Tabs */}
+//         <motion.div initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}}
+//           transition={{ duration: 0.7, delay: 0.4 }} className="flex justify-center gap-1 mb-14">
+//           {tabs.map((tab) => (
+//             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+//               className="relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
+//               style={{
+//                 fontFamily: "Georgia, serif",
+//                 color: activeTab === tab.id ? T.gold : T.body,
+//                 background: activeTab === tab.id ? T.goldBg : "transparent",
+//                 border: `1px solid ${activeTab === tab.id ? T.goldBd : "rgba(138,94,0,0.25)"}`,
+//               }}>
+//               <tab.icon size={14} />
+//               {tab.label}
+//               {activeTab === tab.id && (
+//                 <motion.div layoutId="tabUnderline" className="absolute -bottom-0.5 left-4 right-4 h-px"
+//                   style={{ background: T.gold }}
+//                   transition={{ type: "spring", stiffness: 300, damping: 30 }} />
+//               )}
+//             </button>
+//           ))}
+//         </motion.div>
+
+//         {/* Tab Content */}
+//         <AnimatePresence mode="wait">
+//           {activeTab === "books" && (
+//             <motion.div key="books" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
+//               <BookshelfSlider />
+//             </motion.div>
+//           )}
+//           {activeTab === "articles" && (
+//             <motion.div key="articles" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+//               transition={{ duration: 0.4 }} className="max-w-2xl mx-auto space-y-3">
+//               {articles.map((a, i) => <ArticleCard key={a.title} article={a} index={i} />)}
+//             </motion.div>
+//           )}
+          
+//         </AnimatePresence>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default LiteraryWorksSection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { BookOpen, FileText, Feather, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
@@ -3201,33 +3754,32 @@ import bookCover6 from "@/assets/book6.jpeg";
    THEME TOKENS — darkened for readability on cream/light backgrounds
 ───────────────────────────────────────── */
 const T = {
-  title:   "#1a0f07",        // very dark brown — was #2c1810 (too light)
-  body:    "#3d2410",        // dark brown — was #5a3e2b
-  muted:   "#5c3d22",        // medium brown — was #7a6652
-  gold:    "#8a5e00",        // deep dark gold — was #b8860b (too pale on cream)
-  goldBg:  "rgba(138,94,0,0.10)",
-  goldBd:  "rgba(138,94,0,0.40)",
-  divider: "rgba(138,94,0,0.35)",
-  cardBg:  "rgba(0,0,0,0.05)",
-  cardBd:  "rgba(138,94,0,0.20)",
+  title:   "#1e2a4a",           // dark navy — headings like "Higher Education", "Government Service"
+  body:    "#3a3a3a",           // dark gray — body paragraph text
+  muted:   "#6b7280",           // medium gray — secondary/muted text
+  gold:    "#b8860b",           // gold — year labels like "1950", "1975–2010"
+  goldBg:  "rgba(184,134,11,0.10)",
+  goldBd:  "rgba(184,134,11,0.40)",
+  divider: "rgba(184,134,11,0.35)",
+  cardBg:  "rgba(30,42,74,0.04)",
+  cardBd:  "rgba(184,134,11,0.20)",
 };
 
 /* ─────────────────────────────────────────
-   DATA — descriptions and book names without spaces
+   DATA
 ───────────────────────────────────────── */
 const tabs = [
   { id: "books",    label: "Books",    icon: BookOpen },
   { id: "articles", label: "Articles", icon: FileText },
-  { id: "poems",    label: "Poems",    icon: Feather },
 ];
 
 const booksWithCovers = [
-  { title: "Devarayanadurga Divyadarshan", year: "2024", desc: "Essays on the intersection of public service, ethics, and the role of literature in shaping civil society.", cover: bookCover6 },
-  { title: "Tumkur District Temples",      year: "2023", desc: "A sweeping narrative exploring the moral fabric of rural Karnataka, blending folklore with modern dilemmas.", cover: bookCover1 },
-  { title: "Weaver Culture and History",   year: "2022", desc: "Essays on public service, ethics, and the role of literature in shaping civil society.", cover: bookCover5 },
-  { title: "My Mind, My People",           year: "2021", desc: "Essays on the intersection of public service, ethics, and the role of literature in shaping civil society.", cover: bookCover3 },
-  { title: "Silver Bowl",                  year: "2020", desc: "A poetry collection celebrating the landscapes, seasons, and spiritual rhythms of the Deccan plateau.", cover: bookCover2 },
-  { title: "Seasons of Memory",            year: "2019", desc: "Essays on the intersection of public service, ethics, and cultural memory.", cover: bookCover4 },
+  { title: "Devarayanadurga Divyadarshan", year: "", desc: "Essays on the intersection of public service, ethics, and the role of literature in shaping civil society.", cover: bookCover6 },
+  { title: "Tumkur District Temples",      year: "", desc: "A sweeping narrative exploring the moral fabric of rural Karnataka, blending folklore with modern dilemmas.", cover: bookCover1 },
+  { title: "Weaver Culture and History",   year: "", desc: "Essays on public service, ethics, and the role of literature in shaping civil society.", cover: bookCover5 },
+  { title: "My Mind, My People",           year: "", desc: "Essays on the intersection of public service, ethics, and the role of literature in shaping civil society.", cover: bookCover3 },
+  { title: "Silver Bowl",                  year: "", desc: "A poetry collection celebrating the landscapes, seasons, and spiritual rhythms of the Deccan plateau.", cover: bookCover2 },
+  { title: "Seasons of Memory",            year: "", desc: "Essays on the intersection of public service, ethics, and cultural memory.", cover: bookCover4 },
 ];
 
 const booksWithoutCovers = [
@@ -3253,21 +3805,15 @@ const booksWithoutCovers = [
 ];
 
 const articles = [
-  { title: "The Role of Vernacular Literature in Nation Building", venue: "Indian Literary Review", year: "2010" },
-  { title: "Cultural Policy and Regional Identity", venue: "Karnataka Journal of Public Affairs", year: "2012" },
-  { title: "Language, Identity, and the Modern State", venue: "The Hindu Literary Supplement", year: "2018" },
-  { title: "Preserving Folk Traditions in the Digital Age", venue: "Deccan Herald", year: "2020" },
+  { title: "Public Inspiration for the Change That Is Needed", venue: "", year: "" },
+  { title: "Subheeksha (Prosperity / Well-being)", venue: "", year: "" },
+  { title: "India Today", venue: "India Today", year: "" },
+  { title: "Samyukta Karnataka (Special Article)", venue: "Samyukta Karnataka", year: "" },
+  { title: "E Sanje (Special Report)", venue: "E Sanje", year: "" },
+  { title: "Vijayavani Article", venue: "Vijayavani", year: "" },
+  { title: "Special Magazine Feature Article", venue: "Special Magazine", year: "" },
 ];
 
-const poems = [
-  { title: "The River Remembers", excerpt: "The river remembers what we forget — the footsteps of ancestors on wet clay, the songs that carried across the fields before silence claimed the horizon." },
-  { title: "Monsoon Letters", excerpt: "Each raindrop is a letter written by the sky to the parched earth, a promise renewed, a covenant older than memory itself." },
-  { title: "The Banyan's Witness", excerpt: "Under the banyan's ancient arms I learned the patience of roots, the courage of branches reaching toward light they may never touch." },
-];
-
-/* ─────────────────────────────────────────
-   BOOKSHELF SLIDER
-───────────────────────────────────────── */
 /* ─────────────────────────────────────────
    BOOKSHELF SLIDER
 ───────────────────────────────────────── */
@@ -3307,7 +3853,6 @@ const BookshelfSlider = () => {
     return             { zIndex:  5, x: `${sign * 135}%`, scale: 0.50, opacity: 0.15, rotateY: sign * -45, blur: 2 };
   };
 
-  /* ── Flower Rangoli SVG ── */
   const FlowerRangoli = () => (
     <svg
       viewBox="0 0 120 120"
@@ -3315,35 +3860,20 @@ const BookshelfSlider = () => {
       style={{ width: 72, height: 72, flexShrink: 0, opacity: 0.82 }}
     >
       <g transform="translate(60,60)">
-        {/* outer ring — 8 petals offset 22.5° */}
         {[22.5,67.5,112.5,157.5,202.5,247.5,292.5,337.5].map((deg, i) => (
-          <ellipse
-            key={`o${i}`}
-            cx="0" cy="-32" rx="4" ry="9"
-            fill="#fbd5df" opacity="0.38"
-            transform={`rotate(${deg})`}
-          />
+          <ellipse key={`o${i}`} cx="0" cy="-32" rx="4" ry="9" fill="#fbd5df" opacity="0.38" transform={`rotate(${deg})`} />
         ))}
-        {/* inner ring — 8 petals */}
         {[0,45,90,135,180,225,270,315].map((deg, i) => (
-          <ellipse
-            key={`i${i}`}
-            cx="0" cy="-18" rx="5" ry="10"
-            fill="#f9c8d4" opacity="0.58"
-            transform={`rotate(${deg})`}
-          />
+          <ellipse key={`i${i}`} cx="0" cy="-18" rx="5" ry="10" fill="#f9c8d4" opacity="0.58" transform={`rotate(${deg})`} />
         ))}
-        {/* tiny dot ring */}
         {[0,45,90,135,180,225,270,315].map((deg, i) => (
           <circle
             key={`d${i}`}
             cx={Math.round(Math.sin((deg * Math.PI) / 180) * 10)}
             cy={Math.round(-Math.cos((deg * Math.PI) / 180) * 10)}
-            r="1.2"
-            fill="#f7a8bf" opacity="0.55"
+            r="1.2" fill="#f7a8bf" opacity="0.55"
           />
         ))}
-        {/* centre */}
         <circle r="6" fill="#f7b6c8" opacity="0.75" />
         <circle r="3" fill="#fde8ee" opacity="1" />
       </g>
@@ -3352,14 +3882,11 @@ const BookshelfSlider = () => {
 
   return (
     <div className="w-full flex flex-col gap-14">
-
-      {/* ── MAIN ROW: LEFT books | CENTER rangoli | RIGHT info+controls ── */}
       <div
         className="w-full max-w-5xl mx-auto"
         style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: "0 32px" }}
       >
-
-        {/* ── LEFT: book carousel ── */}
+        {/* LEFT: book carousel */}
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <div
@@ -3398,10 +3925,7 @@ const BookshelfSlider = () => {
                         }}
                       >
                         <img src={b.cover} alt={b.title} className="w-full h-full object-cover" loading="lazy" />
-                        <div
-                          className="absolute inset-0 pointer-events-none"
-                          style={{ boxShadow: "inset 6px 0 18px rgba(0,0,0,0.2)" }}
-                        />
+                        <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 6px 0 18px rgba(0,0,0,0.2)" }} />
                       </div>
                     </div>
                   </motion.div>
@@ -3411,14 +3935,13 @@ const BookshelfSlider = () => {
           </div>
         </div>
 
-        {/* ── CENTER: flower rangoli ── */}
+        {/* CENTER: flower rangoli */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
           <FlowerRangoli />
-          {/* thin vertical line above and below */}
           <div style={{ width: 1, height: 48, background: "rgba(249,200,212,0.45)" }} />
         </div>
 
-        {/* ── RIGHT: book info + nav controls ── */}
+        {/* RIGHT: book info + nav controls */}
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 380, width: "100%" }}>
 
@@ -3432,40 +3955,30 @@ const BookshelfSlider = () => {
                 transition={{ duration: 0.42 }}
                 style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 28 }}
               >
-                <p
-                  style={{
-                    fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase",
-                    color: T.gold, fontFamily: "Georgia, serif", fontWeight: 600, margin: 0,
-                  }}
-                >
+                {/* Counter — matches AboutSection's tracking-[0.2em] uppercase text-sm */}
+                <p className="text-sm font-medium uppercase tracking-[0.2em]" style={{ color: T.gold }}>
                   {String(current + 1).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
                 </p>
-                <h3
-                  style={{
-                    fontSize: "clamp(1.3rem,2.5vw,1.75rem)", fontWeight: 500, lineHeight: 1.25,
-                    color: T.title, fontFamily: "Georgia, serif", margin: 0,
-                  }}
-                >
+
+                {/* Title — matches AboutSection's font-heading font-bold text-3xl */}
+                <h3 className="font-heading font-bold text-2xl md:text-3xl leading-tight" style={{ color: T.title, margin: 0 }}>
                   {book.title}
                 </h3>
+
                 <div style={{ width: 48, height: 1, background: T.gold }} />
+
+                {/* Year badge */}
                 <span
+                  className="font-medium text-xs tracking-[0.1em] uppercase inline-block self-start px-3 py-1 rounded-full"
                   style={{
-                    display: "inline-block", alignSelf: "flex-start",
-                    padding: "3px 12px", borderRadius: 999, fontSize: 11,
-                    letterSpacing: "0.1em", fontWeight: 600,
-                    background: T.goldBg, border: `1px solid ${T.goldBd}`,
-                    color: T.gold, fontFamily: "Georgia, serif",
+                    background: T.goldBg, border: `1px solid ${T.goldBd}`, color: T.gold,
                   }}
                 >
                   {book.year}
                 </span>
-                <p
-                  style={{
-                    fontSize: 13, lineHeight: 1.75, color: T.body,
-                    fontFamily: "Georgia, serif", fontStyle: "italic", margin: 0,
-                  }}
-                >
+
+                {/* Description — matches AboutSection's muted-foreground leading-relaxed */}
+                <p className="text-sm leading-relaxed italic" style={{ color: T.body, margin: 0 }}>
                   {book.desc}
                 </p>
               </motion.div>
@@ -3481,13 +3994,12 @@ const BookshelfSlider = () => {
                   border: `1px solid ${T.goldBd}`, background: T.goldBg, color: T.gold,
                   transition: "background 0.2s",
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = "rgba(138,94,0,0.18)"}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(184,134,11,0.18)"}
                 onMouseLeave={e => e.currentTarget.style.background = T.goldBg}
               >
                 <ChevronLeft size={16} />
               </button>
 
-              {/* dots */}
               <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
                 {booksWithCovers.map((_, i) => (
                   <button
@@ -3496,7 +4008,7 @@ const BookshelfSlider = () => {
                     style={{
                       width: i === current ? 22 : 7, height: 7,
                       borderRadius: 999, cursor: "pointer", padding: 0,
-                      background: i === current ? T.gold : "rgba(138,94,0,0.30)",
+                      background: i === current ? T.gold : "rgba(184,134,11,0.30)",
                       border: `1px solid ${T.goldBd}`,
                       transition: "all 0.3s",
                     }}
@@ -3512,7 +4024,7 @@ const BookshelfSlider = () => {
                   border: `1px solid ${T.goldBd}`, background: T.goldBg, color: T.gold,
                   transition: "background 0.2s",
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = "rgba(138,94,0,0.18)"}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(184,134,11,0.18)"}
                 onMouseLeave={e => e.currentTarget.style.background = T.goldBg}
               >
                 <ChevronRight size={16} />
@@ -3523,23 +4035,22 @@ const BookshelfSlider = () => {
                 style={{
                   width: 36, height: 36, borderRadius: "50%", display: "flex",
                   alignItems: "center", justifyContent: "center", cursor: "pointer",
-                  border: `1px solid rgba(138,94,0,0.25)`,
-                  background: "rgba(138,94,0,0.06)", color: T.gold,
+                  border: `1px solid rgba(184,134,11,0.25)`,
+                  background: "rgba(184,134,11,0.06)", color: T.gold,
                   transition: "background 0.2s",
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = "rgba(138,94,0,0.15)"}
-                onMouseLeave={e => e.currentTarget.style.background = "rgba(138,94,0,0.06)"}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(184,134,11,0.15)"}
+                onMouseLeave={e => e.currentTarget.style.background = "rgba(184,134,11,0.06)"}
               >
                 {isPlaying ? <Pause size={14} /> : <Play size={14} />}
               </button>
             </div>
 
-            {/* progress bar */}
             {isPlaying && (
               <div
                 style={{
                   width: 140, height: 2, borderRadius: 999, overflow: "hidden",
-                  background: "rgba(138,94,0,0.15)", marginTop: 10,
+                  background: "rgba(184,134,11,0.15)", marginTop: 10,
                 }}
               >
                 <motion.div
@@ -3555,12 +4066,12 @@ const BookshelfSlider = () => {
         </div>
       </div>
 
-      {/* ── Also Published ── */}
+      {/* Also Published */}
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
         <div className="flex items-center gap-4 mb-8">
           <div className="flex-1 h-px" style={{ background: T.divider }} />
-          <p className="text-xs tracking-widest uppercase font-semibold"
-            style={{ color: T.gold, fontFamily: "Georgia, serif" }}>
+          {/* "Also Published" label — matches AboutSection's tracking-[0.2em] uppercase text-sm font-medium text-gold */}
+          <p className="text-xs tracking-[0.2em] uppercase font-medium" style={{ color: T.gold }}>
             Also Published
           </p>
           <div className="flex-1 h-px" style={{ background: T.divider }} />
@@ -3575,16 +4086,16 @@ const BookshelfSlider = () => {
               whileHover={{ x: 4 }}
               className="flex items-start gap-3 px-4 py-2.5 rounded-lg group cursor-default transition-all duration-200"
               style={{ background: "transparent" }}
-              onMouseEnter={e => e.currentTarget.style.background = "rgba(138,94,0,0.06)"}
+              onMouseEnter={e => e.currentTarget.style.background = "rgba(184,134,11,0.06)"}
               onMouseLeave={e => e.currentTarget.style.background = "transparent"}
             >
               <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: T.gold }} />
               <div>
-                <p className="text-xs font-semibold leading-snug transition-colors duration-200 group-hover:text-amber-800"
-                  style={{ fontFamily: "Georgia, serif", color: T.body }}>
+                {/* Book title — matches AboutSection's font-heading font-semibold text-sm */}
+                <p className="font-heading font-semibold text-sm leading-snug tracking-wide transition-colors duration-200 group-hover:text-[#2c3e6b]"
+                  style={{ color: T.title, fontSize : "15px", fontWeight  : 1000 }}>
                   {book.title}
                 </p>
-                <p className="text-xs mt-0.5 font-medium" style={{ color: T.muted }}></p>
               </div>
             </motion.div>
           ))}
@@ -3604,7 +4115,7 @@ const ArticleCard = ({ article, index }) => (
     whileHover={{ x: 8, transition: { duration: 0.2 } }}
     className="flex items-start gap-4 rounded-xl p-5 cursor-pointer group transition-all duration-300"
     style={{ background: T.cardBg, border: `1px solid ${T.cardBd}` }}
-    onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(138,94,0,0.45)"}
+    onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(184,134,11,0.45)"}
     onMouseLeave={e => e.currentTarget.style.borderColor = T.cardBd}
   >
     <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -3612,41 +4123,13 @@ const ArticleCard = ({ article, index }) => (
       <FileText size={16} style={{ color: T.gold }} />
     </div>
     <div>
-      <h4 className="font-semibold text-sm leading-snug transition-colors duration-300 group-hover:text-amber-800"
-        style={{ fontFamily: "Georgia, serif", color: T.title }}>{article.title}</h4>
+      {/* Article title — matches AboutSection's font-heading font-semibold text-lg */}
+      <h4 className="font-heading font-semibold text-sm leading-snug transition-colors duration-300 group-hover:text-[#2c3e6b]"
+        style={{ color: T.title }}>{article.title}</h4>
       <p className="text-xs mt-1 font-medium" style={{ color: T.muted }}>
-        {article.venue} · <span style={{ color: T.gold }}>{article.year}</span>
+        {article.venue && <span style={{ color: T.gold }}>{article.year}</span>}
       </p>
     </div>
-  </motion.div>
-);
-
-/* ─────────────────────────────────────────
-   POEM CARD
-───────────────────────────────────────── */
-const PoemCard = ({ poem, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: index * 0.15 }}
-    whileHover={{ y: -6, transition: { duration: 0.3 } }}
-    className="rounded-xl p-7 text-center relative overflow-hidden group cursor-default"
-    style={{ background: T.cardBg, border: `1px solid ${T.cardBd}` }}
-  >
-    {[["top-3 left-3","borderTop","borderLeft"],["top-3 right-3","borderTop","borderRight"],
-      ["bottom-3 left-3","borderBottom","borderLeft"],["bottom-3 right-3","borderBottom","borderRight"]].map(([pos,a,b],i) => (
-      <div key={i} className={`absolute ${pos} w-4 h-4 pointer-events-none`}
-        style={{ [a]: `1px solid ${T.goldBd}`, [b]: `1px solid ${T.goldBd}` }} />
-    ))}
-    <motion.div initial={{ rotate: 0 }} whileHover={{ rotate: 12 }} transition={{ duration: 0.3 }} className="inline-flex mb-4">
-      <Feather size={20} style={{ color: T.gold }} />
-    </motion.div>
-    <h4 className="text-base font-semibold mb-4 transition-colors duration-300 group-hover:text-amber-800"
-      style={{ fontFamily: "Georgia, serif", color: T.title }}>{poem.title}</h4>
-    <div className="w-8 h-px mx-auto mb-4" style={{ background: T.divider }} />
-    <p className="text-xs leading-relaxed italic"
-      style={{ color: T.body, fontFamily: "Georgia, serif" }}>
-      {poem.excerpt}
-    </p>
   </motion.div>
 );
 
@@ -3662,24 +4145,31 @@ const LiteraryWorksSection = () => {
     <section id="works" ref={ref} className="relative py-24 overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
 
-        {/* Header */}
+        {/* Header — mirrors AboutSection header structure exactly */}
         <motion.div initial={{ opacity: 0, y: 40 }} animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9 }} className="text-center mb-14">
+
+          {/* "Bibliography" label — matches AboutSection's text-gold tracking-[0.2em] uppercase text-sm font-medium */}
           <motion.p
             initial={{ opacity: 0, letterSpacing: "0em" }}
-            animate={isInView ? { opacity: 1, letterSpacing: "0.22em" } : {}}
+            animate={isInView ? { opacity: 1, letterSpacing: "0.2em" } : {}}
             transition={{ duration: 1.1, delay: 0.2 }}
-            className="text-xs font-bold uppercase mb-3"
-            style={{ color: T.gold, fontFamily: "Georgia, serif" }}>
+            className="text-sm font-medium uppercase tracking-[0.2em] mb-2"
+            style={{ color: T.gold }}
+          >
             Bibliography
           </motion.p>
-          <h2 className="text-4xl md:text-5xl font-medium mb-4"
-            style={{ fontFamily: "Georgia, serif", color: T.title, letterSpacing: "-0.01em" }}>
+
+          {/* Main heading — matches AboutSection's font-heading font-bold text-3xl md:text-4xl lg:text-5xl */}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4"
+            style={{ color: T.title }}>
             Literary <span style={{ color: T.gold, fontStyle: "italic" }}>Works</span>
           </h2>
+
+          {/* Divider line — matches AboutSection's gold underline */}
           <motion.div initial={{ scaleX: 0 }} animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.9, delay: 0.6 }}
-            className="w-20 h-px mx-auto origin-center"
+            className="w-24 h-0.5 mx-auto origin-center"
             style={{ background: `linear-gradient(to right, transparent, ${T.gold}, transparent)` }} />
         </motion.div>
 
@@ -3688,12 +4178,11 @@ const LiteraryWorksSection = () => {
           transition={{ duration: 0.7, delay: 0.4 }} className="flex justify-center gap-1 mb-14">
           {tabs.map((tab) => (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-              className="relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
+              className="relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-heading font-semibold transition-all duration-300"
               style={{
-                fontFamily: "Georgia, serif",
                 color: activeTab === tab.id ? T.gold : T.body,
                 background: activeTab === tab.id ? T.goldBg : "transparent",
-                border: `1px solid ${activeTab === tab.id ? T.goldBd : "rgba(138,94,0,0.25)"}`,
+                border: `1px solid ${activeTab === tab.id ? T.goldBd : "rgba(184,134,11,0.25)"}`,
               }}>
               <tab.icon size={14} />
               {tab.label}
@@ -3717,12 +4206,6 @@ const LiteraryWorksSection = () => {
             <motion.div key="articles" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }} className="max-w-2xl mx-auto space-y-3">
               {articles.map((a, i) => <ArticleCard key={a.title} article={a} index={i} />)}
-            </motion.div>
-          )}
-          {activeTab === "poems" && (
-            <motion.div key="poems" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }} className="grid md:grid-cols-3 gap-6">
-              {poems.map((p, i) => <PoemCard key={p.title} poem={p} index={i} />)}
             </motion.div>
           )}
         </AnimatePresence>
