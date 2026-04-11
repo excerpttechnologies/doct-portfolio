@@ -1081,6 +1081,257 @@
 
 
 
+// import { useRef } from "react";
+// import { motion, useInView } from "framer-motion";
+// import awardImg from "@/assets/award.jpeg";
+// import awardImg2 from "@/assets/award2.jpeg";
+// import {
+//   Trophy,
+//   Star,
+//   Medal,
+//   Award,
+//   BookOpen,
+//   Globe,
+//   ShieldCheck,
+//   Sparkles,
+//   ChevronRight,
+//   Crown,
+//   Heart,
+// } from "lucide-react";
+// import Header from "@/components/Header";
+
+// const awards = [
+//   { title: "Central Government Sanman Award", desc: "For outstanding contribution to Kannada literature.", icon: Trophy },
+//   { title: "Karnataka Bhushan State Award", desc: "For excellence in Kannada literary achievements.", icon: Star },
+//   { title: "Karnataka 'Ekalavya Shri' Award", desc: "For lifetime contribution to Kannada literature.", icon: Medal },
+//   { title: "Pamparatna Award", desc: "Highest literary honour by Karnataka Government.", icon: Award },
+//   { title: "Nekara Ratna Award", desc: "For distinguished service in literature and education.", icon: ShieldCheck },
+//   { title: "Hometown Achievement Award", desc: "For dedication towards literary and social service.", icon: Heart },
+//   { title: "Bhavana Rishi Padma Peetha Award", desc: "For contribution to cultural and literary development.", icon: Sparkles },
+//   { title: "Markandeya Gurupeeth Award", desc: "For excellence in Kannada literary works.", icon: Crown },
+//   { title: "Indian 'Sahityasree' Award", desc: "For contribution to Indian literature.", icon: BookOpen },
+//   { title: "R. V. Devaraja Seva Foundation Award", desc: "For service in literature and social upliftment.", icon: Globe },
+//   { title: "Kannada Sirigandha Award", desc: "For promoting Kannada language and culture.", icon: Trophy },
+//   { title: "Kannada Seva Ratna Award", desc: "For outstanding service to Kannada community.", icon: Medal },
+//   { title: "Kannada Yuva Sahitya Shri Award", desc: "For excellence in young literary contributions.", icon: BookOpen },
+//   { title: "Vishwa Sahitya Shri Award – Kannada Sangha, Toronto, Canada", desc: "For global recognition in Kannada literature.", icon: Globe },
+// ];
+
+// const GOLD = "#C8A45D";
+// const GOLD_DARK = "#A57C3C";
+// const SOFT_GOLD_BG = "rgba(200,164,93,0.06)";
+
+// export default function AwardsSection() {
+//   const sectionRef = useRef(null);
+//   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+//   return (
+//     <>
+//       <Header />
+
+//       <section
+//         ref={sectionRef}
+//         style={{
+//           background: "#FFFFFF",
+//           fontFamily: "'Inter', 'Helvetica Neue', system-ui, sans-serif",
+//           padding: "80px 0 120px",
+//           minHeight: "100vh",
+//           position: "relative",
+//           overflowX: "hidden",
+//         }}
+//       >
+//         {/* subtle background pattern */}
+//         <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 0 }}>
+//           <div style={{ position: "absolute", top: "10%", right: "-5%", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle, rgba(200,164,93,0.03) 0%, rgba(200,164,93,0) 70%)" }} />
+//           <div style={{ position: "absolute", bottom: "5%", left: "-3%", width: "350px", height: "350px", borderRadius: "50%", background: "radial-gradient(circle, rgba(200,164,93,0.02) 0%, rgba(200,164,93,0) 70%)" }} />
+//         </div>
+
+//         <div
+//           style={{
+//             maxWidth: 1400,
+//             margin: "0 auto",
+//             padding: "0 32px",
+//             display: "flex",
+//             gap: 64,
+//             alignItems: "flex-start",
+//             flexWrap: "wrap",
+//             position: "relative",
+//             zIndex: 2,
+//           }}
+//         >
+//           {/* ===== LEFT SIDE - TWO AWARD IMAGES ===== */}
+//           <motion.div
+//             initial={{ opacity: 0, x: -50 }}
+//             animate={isInView ? { opacity: 1, x: 0 } : {}}
+//             transition={{ duration: 0.7, ease: [0.25, 0.1, 0.1, 1] }}
+//             style={{
+//               flex: 1.2,
+//               minWidth: 280,
+//               position: "relative",
+//               display: "flex",
+//               flexDirection: "column",
+//               gap: 24,
+//             }}
+//           >
+//             {/* Decorative rings */}
+//             <div style={{ position: "absolute", top: -20, left: -20, width: 120, height: 120, border: `2px solid ${GOLD}`, borderRadius: "50%", opacity: 0.2, pointerEvents: "none", zIndex: 0 }} />
+//             <div style={{ position: "absolute", bottom: -20, right: -20, width: 90, height: 90, border: `2px solid ${GOLD}`, borderRadius: "50%", opacity: 0.2, pointerEvents: "none", zIndex: 0 }} />
+
+//             {/* Corner accents */}
+//             <div style={{ position: "absolute", top: -8, left: -8, width: 40, height: 40, borderTop: `3px solid ${GOLD}`, borderLeft: `3px solid ${GOLD}`, pointerEvents: "none", zIndex: 1 }} />
+//             <div style={{ position: "absolute", top: -8, right: -8, width: 40, height: 40, borderTop: `3px solid ${GOLD}`, borderRight: `3px solid ${GOLD}`, pointerEvents: "none", zIndex: 1 }} />
+//             <div style={{ position: "absolute", bottom: -8, left: -8, width: 40, height: 40, borderBottom: `3px solid ${GOLD}`, borderLeft: `3px solid ${GOLD}`, pointerEvents: "none", zIndex: 1 }} />
+//             <div style={{ position: "absolute", bottom: -8, right: -8, width: 40, height: 40, borderBottom: `3px solid ${GOLD}`, borderRight: `3px solid ${GOLD}`, pointerEvents: "none", zIndex: 1 }} />
+
+//             {/* First Award Image */}
+//             <motion.div
+//               whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
+//               style={{
+//                 position: "relative",
+//                 borderRadius: 28,
+//                 overflow: "hidden",
+//                 boxShadow: "0 30px 50px -20px rgba(0,0,0,0.3), 0 0 0 1px rgba(200,164,93,0.3)",
+//               }}
+//             >
+//               <img
+//                 src={awardImg}
+//                 alt="Dr. K. G. Lakshmi Narayanappa receiving award"
+//                 style={{ width: "100%", height: "auto", display: "block", objectFit: "cover", aspectRatio: "4/5", filter: "brightness(0.98) contrast(1.02)" }}
+//               />
+//               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(145deg, rgba(200,164,93,0.1) 0%, rgba(0,0,0,0.1) 100%)", pointerEvents: "none" }} />
+//               <div style={{ position: "absolute", bottom: 20, right: 20, background: "rgba(255,255,255,0.85)", backdropFilter: "blur(8px)", borderRadius: 40, padding: "6px 16px", fontSize: 11, fontWeight: 600, color: GOLD_DARK, letterSpacing: "0.5px", border: `1px solid ${GOLD}40` }}>
+//                 ✦ Literary Legend ✦
+//               </div>
+//             </motion.div>
+
+            
+
+//             {/* Caption */}
+//             <motion.p
+//               initial={{ opacity: 0, y: 8 }}
+//               animate={isInView ? { opacity: 1, y: 0 } : {}}
+//               transition={{ delay: 0.25, duration: 0.5 }}
+//               style={{ marginTop: 8, textAlign: "center", fontSize: 12, letterSpacing: "0.25em", fontFamily: "'Inter', sans-serif", color: GOLD, textTransform: "uppercase", fontWeight: 400 }}
+//             >
+//               — Prestigious Moments —
+//             </motion.p>
+
+//             {/* Stat block placeholder */}
+//             <motion.div
+//               initial={{ opacity: 0, scale: 0.95 }}
+//               animate={isInView ? { opacity: 1, scale: 1 } : {}}
+//               transition={{ delay: 0.4, duration: 0.5 }}
+//               style={{ display: "flex", justifyContent: "center", gap: 28, background: SOFT_GOLD_BG, borderRadius: 80, padding: "12px 28px", border: `1px solid rgba(200,164,93,0.25)` }}
+//             />
+//           </motion.div>
+
+//           {/* ===== RIGHT SIDE - AWARDS LIST ===== */}
+//           <div style={{ flex: 1.8, minWidth: 380 }}>
+//             <motion.div
+//               initial={{ opacity: 0, y: 30 }}
+//               animate={isInView ? { opacity: 1, y: 0 } : {}}
+//               transition={{ duration: 0.7, delay: 0.1 }}
+//               style={{ marginBottom: 48 }}
+//             >
+//               <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, letterSpacing: "0.2em", color: "#5a4a2a", textTransform: "uppercase", fontWeight: 800, marginBottom: 8 }}>
+//                 Dr. K. G. Lakshmi Narayanappa
+//               </p>
+//               <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, letterSpacing: "0.28em", textTransform: "uppercase", fontWeight: 800, marginBottom: 18, background: "linear-gradient(135deg, #C8A45D 0%, #B58E48 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", display: "inline-block" }}>
+//                 RECOGNITION &amp; HONOURS
+//               </p>
+
+//               <h2 style={{ fontSize: "clamp(42px, 6vw, 58px)", fontWeight: 500, color: "#121212", margin: "0 0 18px", lineHeight: 1.12, letterSpacing: "-0.02em", fontFamily: "'Cormorant Garamond', 'Georgia', serif" }}>
+//                 Awards &amp;{" "}
+//                 <span style={{ color: GOLD, fontWeight: 700, borderBottom: `2px solid ${GOLD}40`, display: "inline-block" }}>Achievements</span>
+//               </h2>
+
+//               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
+//                 <motion.div initial={{ width: 0 }} animate={isInView ? { width: 70 } : {}} transition={{ duration: 0.7, delay: 0.3 }} style={{ height: 2, background: `linear-gradient(90deg, ${GOLD}, rgba(200,164,93,0.3))` }} />
+//                 <motion.div initial={{ scale: 0 }} animate={isInView ? { scale: 1 } : {}} transition={{ duration: 0.4, delay: 0.45 }} style={{ width: 8, height: 8, borderRadius: "50%", background: GOLD }} />
+//                 <motion.div initial={{ width: 0 }} animate={isInView ? { width: 50 } : {}} transition={{ duration: 0.7, delay: 0.3 }} style={{ height: 1, background: `linear-gradient(90deg, ${GOLD}, rgba(200,164,93,0.1))` }} />
+//               </div>
+
+             
+//             </motion.div>
+
+//             {/* Awards List */}
+//             <div style={{ maxHeight: "calc(100vh - 330px)", overflowY: "auto", paddingRight: 8, scrollbarWidth: "thin", scrollbarColor: `${GOLD} #e2e2e2` }} className="custom-scroll">
+//               {awards.map((award, idx) => {
+//                 const Icon = award.icon;
+//                 return (
+//                   <motion.div
+//                     key={award.title}
+//                     initial={{ opacity: 0, x: -22 }}
+//                     animate={isInView ? { opacity: 1, x: 0 } : {}}
+//                     transition={{ duration: 0.45, delay: 0.05 + idx * 0.035 }}
+//                     style={{ display: "flex", alignItems: "center", gap: 18, padding: "18px 14px 18px 0", borderBottom: "1px solid rgba(200, 164, 93, 0.12)", cursor: "default", transition: "all 0.2s ease", borderRadius: 12, marginBottom: 2 }}
+//                     whileHover={{ backgroundColor: "rgba(200,164,93,0.05)", paddingLeft: 8, borderRadius: 16, transition: { duration: 0.2 } }}
+//                   >
+//                     <span style={{ fontFamily: "'Inter', monospace", fontSize: 13, fontWeight: 600, color: GOLD, minWidth: 36, textAlign: "right", letterSpacing: "0.5px" }}>
+//                       {String(idx + 1).padStart(2, "0")}
+//                     </span>
+//                     <motion.div
+//                       whileHover={{ scale: 1.05 }}
+//                       style={{ width: 46, height: 46, borderRadius: "50%", background: "linear-gradient(135deg, rgba(200,164,93,0.1) 0%, rgba(200,164,93,0.02) 100%)", border: "1px solid rgba(200,164,93,0.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+//                     >
+//                       <Icon size={19} color={GOLD} strokeWidth={1.6} />
+//                     </motion.div>
+//                     <div style={{ flex: 1 }}>
+//                       <p style={{ margin: 0, fontSize: 16.5, fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.2px" }}>{award.title}</p>
+//                       <p style={{ margin: "6px 0 0", fontSize: 12.5, color: "#6f6f6f", fontFamily: "'Inter', sans-serif", fontWeight: 400, lineHeight: 1.4 }}>{award.desc}</p>
+//                     </div>
+//                     <ChevronRight size={15} color={GOLD} style={{ opacity: 0.3, transition: "opacity 0.2s" }} className="chevron-icon" />
+//                   </motion.div>
+//                 );
+//               })}
+//             </div>
+
+//             {/* Footer badge */}
+//             <motion.div
+//               initial={{ opacity: 0, y: 15 }}
+//               animate={isInView ? { opacity: 1, y: 0 } : {}}
+//               transition={{ delay: 1.1, duration: 0.6 }}
+//               style={{ textAlign: "center", marginTop: 48 }}
+//             >
+//               <div style={{ display: "inline-flex", alignItems: "center", gap: 14, padding: "12px 28px", borderRadius: 100, background: "#FDF9F2", border: `1px solid rgba(200,164,93,0.3)` }}>
+//                 <span style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: GOLD, display: "inline-block" }} />
+//                 <span style={{ fontSize: 11, letterSpacing: "0.25em", fontFamily: "'Inter', sans-serif", color: GOLD_DARK, textTransform: "uppercase", fontWeight: 700 }}>
+//                   A Journey of Literary Excellence
+//                 </span>
+//                 <span style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: GOLD, display: "inline-block" }} />
+//               </div>
+//             </motion.div>
+//           </div>
+//         </div>
+
+//         <style>{`
+//           .custom-scroll::-webkit-scrollbar { width: 5px; }
+//           .custom-scroll::-webkit-scrollbar-track { background: #f0ede8; border-radius: 8px; }
+//           .custom-scroll::-webkit-scrollbar-thumb { background: #C8A45D; border-radius: 8px; }
+//           .chevron-icon { opacity: 0.3; transition: opacity 0.2s ease, transform 0.2s; }
+//           div:hover > .chevron-icon { opacity: 0.8; transform: translateX(3px); }
+//         `}</style>
+//       </section>
+//     </>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import awardImg from "@/assets/award.jpeg";
@@ -1101,20 +1352,20 @@ import {
 import Header from "@/components/Header";
 
 const awards = [
-  { title: "Central Government Sanman Award", desc: "For outstanding contribution to Kannada literature.", icon: Trophy },
-  { title: "Karnataka Bhushan State Award", desc: "For excellence in Kannada literary achievements.", icon: Star },
-  { title: "Karnataka 'Ekalavya Shri' Award", desc: "For lifetime contribution to Kannada literature.", icon: Medal },
-  { title: "Pamparatna Award", desc: "Highest literary honour by Karnataka Government.", icon: Award },
-  { title: "Nekara Ratna Award", desc: "For distinguished service in literature and education.", icon: ShieldCheck },
-  { title: "Hometown Achievement Award", desc: "For dedication towards literary and social service.", icon: Heart },
-  { title: "Bhavana Rishi Padma Peetha Award", desc: "For contribution to cultural and literary development.", icon: Sparkles },
-  { title: "Markandeya Gurupeeth Award", desc: "For excellence in Kannada literary works.", icon: Crown },
-  { title: "Indian 'Sahityasree' Award", desc: "For contribution to Indian literature.", icon: BookOpen },
-  { title: "R. V. Devaraja Seva Foundation Award", desc: "For service in literature and social upliftment.", icon: Globe },
-  { title: "Kannada Sirigandha Award", desc: "For promoting Kannada language and culture.", icon: Trophy },
-  { title: "Kannada Seva Ratna Award", desc: "For outstanding service to Kannada community.", icon: Medal },
-  { title: "Kannada Yuva Sahitya Shri Award", desc: "For excellence in young literary contributions.", icon: BookOpen },
-  { title: "Vishwa Sahitya Shri Award – Kannada Sangha, Toronto, Canada", desc: "For global recognition in Kannada literature.", icon: Globe },
+  { kannada: "ಕೇಂದ್ರ ಸರಕಾರದ 'ಸನ್ಮಾನ' ಪ್ರಶಸ್ತಿ", title: "Central Government 'Sanman' Prashasti", desc: "For outstanding contribution to Kannada literature.", icon: Trophy },
+  { kannada: "ಕರ್ನಾಟಕ ಭೂಷಣರಾಜ್ಯ ಪ್ರಶಸ್ತಿ", title: "Karnataka Bhooshana Rajya Prashasti", desc: "For excellence in Kannada literary achievements.", icon: Star },
+  { kannada: "ಕರ್ನಾಟಕ 'ಏಕಲವ್ಯ ಶ್ರೀ' ಪ್ರಶಸ್ತಿ", title: "Karnataka 'Ekalavya Shree' Prashasti", desc: "For lifetime contribution to Kannada literature.", icon: Medal },
+  { kannada: "ಪದ್ಮರತ್ನ ಪ್ರಶಸ್ತಿ", title: "Padma ratna Prashasti", desc: "Highest literary honour by Karnataka Government.", icon: Award },
+  { kannada: "ನೇಕಾರರತ್ನ ಪ್ರಶಸ್ತಿ", title: "Nekararatna Prashasti", desc: "For distinguished service in literature and education.", icon: ShieldCheck },
+  { kannada: "ಹುಟ್ಟೂರು ಸಾಧಕ ಪ್ರಶಸ್ತಿ", title: "Hutturu Sadhaka Prashasti", desc: "For dedication towards literary and social service.", icon: Heart },
+  { kannada: "ಭಾವನಾ ಋಷಿ ಪದ್ಮಪೀಠ ಪ್ರಶಸ್ತಿ", title: "Bhavana Rushi Padya Peeta Prashasti", desc: "For contribution to cultural and literary development.", icon: Sparkles },
+  { kannada: "ಮಾರ್ಕಾಂಡೇಯ ಗುರುಪೀಠ ಪ್ರಶಸ್ತಿ", title: "Markandeya GuruPeeta Prashasti", desc: "For excellence in Kannada literary works.", icon: Crown },
+  { kannada: "ಭಾರತೀಯ 'ಸಾಹಿತ್ಯಶ್ರೀ' ಪ್ರಶಸ್ತಿ", title: "Bharatiya 'Sahitya Shree' Prashasti", desc: "For contribution to Indian literature.", icon: BookOpen },
+  { kannada: "ಆರ್. ವಿ. ದೇವರಾಜ್ ಸೇವಾ ಪ್ರತಿಷ್ಠಾನ ಪ್ರಶಸ್ತಿ", title: "R.V. Devaraja Seva Pratisthana Prashasti", desc: "For service in literature and social upliftment.", icon: Globe },
+  { kannada: "ಕನ್ನಡ ಸಿರಿಗಂಧ ಪ್ರಶಸ್ತಿ", title: "Kannada Sirigandha Prashasti", desc: "For promoting Kannada language and culture.", icon: Trophy },
+  { kannada: "ಕನ್ನಡ ಸೇವಾರತ್ನ ಪ್ರಶಸ್ತಿ", title: "Kannada Sevaratna Prashasti", desc: "For outstanding service to Kannada community.", icon: Medal },
+  { kannada: "ಕರ್ನಾಟಕ ಯುವ ಸಾಹಿತ್ಯ ಶ್ರೀ ಪ್ರಶಸ್ತಿ", title: "Karnataka Yuva Sahitya Shree Prashasti", desc: "For excellence in young literary contributions.", icon: BookOpen },
+  { kannada: "'ವಿಶ್ವ ಸಾಹಿತ್ಯಶ್ರೀ ಪ್ರಶಸ್ತಿ' — ಕನ್ನಡ ಸಂಘ, ಟೊರೆಂಟೊ, ಕೆನಡಾ", title: "Vishwa Sahitya Shree Prashasti' — Kannada Sangha, Toronto, Canada", desc: "For global recognition in Kannada literature.", icon: Globe },
 ];
 
 const GOLD = "#C8A45D";
@@ -1277,8 +1528,9 @@ export default function AwardsSection() {
                       <Icon size={19} color={GOLD} strokeWidth={1.6} />
                     </motion.div>
                     <div style={{ flex: 1 }}>
-                      <p style={{ margin: 0, fontSize: 16.5, fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.2px" }}>{award.title}</p>
-                      <p style={{ margin: "6px 0 0", fontSize: 12.5, color: "#6f6f6f", fontFamily: "'Inter', sans-serif", fontWeight: 400, lineHeight: 1.4 }}>{award.desc}</p>
+                      <p style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.2px" }}>{award.kannada}</p>
+                      <p style={{ margin: "3px 0 0", fontSize: 13, fontWeight: 500, color: GOLD_DARK, lineHeight: 1.3, letterSpacing: "-0.1px" }}>{award.title}</p>
+                      <p style={{ margin: "5px 0 0", fontSize: 12.5, color: "#6f6f6f", fontFamily: "'Inter', sans-serif", fontWeight: 400, lineHeight: 1.4 }}>{award.desc}</p>
                     </div>
                     <ChevronRight size={15} color={GOLD} style={{ opacity: 0.3, transition: "opacity 0.2s" }} className="chevron-icon" />
                   </motion.div>

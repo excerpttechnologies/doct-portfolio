@@ -327,7 +327,7 @@ const Header = () => {
           top: 0; left: 0; right: 0;
           z-index: 50;
           font-family: 'Jost', sans-serif;
-          background: #02080e;
+          background: #0A192F;
           border-bottom: 1px solid rgba(201, 168, 76, 0.22);
           box-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
         }

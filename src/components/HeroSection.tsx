@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import heroPortrait from "@/assets/main.png";
 import { ArrowDown, BookOpen, Mail, Sparkles } from "lucide-react";
 import { useCallback } from "react";
-
+import image1 from "@/assets/collage.png";
 const typewriterWords = ["Writer", "Thinker", "Public Servant", "Poet", "Scholar"];
 
 const HeroSection = () => {
@@ -27,13 +27,16 @@ const HeroSection = () => {
         className="absolute inset-0 pointer-events-none"
         animate={{
           background: [
-            "radial-gradient(ellipse at 20% 50%, hsla(40,52%,54%,0.08) 0%, transparent 70%)",
-            "radial-gradient(ellipse at 80% 50%, hsla(40,52%,54%,0.08) 0%, transparent 70%)",
-            "radial-gradient(ellipse at 20% 50%, hsla(40,52%,54%,0.08) 0%, transparent 70%)",
+            "radial-gradient(ellipse at 20% 50%, hsla(238, 78%, 7%, 0.77) 0%, transparent 70%)",
+            "radial-gradient(ellipse at 80% 50%, hsla(206, 92%, 46%, 0.08) 0%, transparent 70%)",
+            "radial-gradient(ellipse at 20% 50%, hsla(238, 86%, 19%, 0.08) 0%, transparent 70%)",
           ],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
+
+
+
 
       {/* Floating particles - enhanced */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -60,6 +63,8 @@ const HeroSection = () => {
           />
         ))}
       </div>
+
+
 
       {/* Gold decorative line */}
       <motion.div
@@ -95,7 +100,9 @@ const HeroSection = () => {
               <img
                 src={heroPortrait}
                 alt="Dr. K. G. Lakshmi Narayanappa"
-                className="w-full h-full object-cover"
+                // className="w-full h-full object-cover"
+                 className="w-full h-full object-cover"
+  style={{ mixBlendMode: "lighten" }}
                 width={800}
                 height={1024}
               />
@@ -188,6 +195,9 @@ const HeroSection = () => {
         </div>
       </motion.div>
 
+
+{/* <img  style={{marginRight: "50px",height: "50%"}} src={image1} alt="Dr. K. G. Lakshmi Narayanappa" /> */}
+
       {/* Scroll indicator */}
       <motion.button
         onClick={() => scrollToSection("about")}
@@ -207,3 +217,9 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
+
+
+
+
+

@@ -4,7 +4,7 @@ import heroPortrait from "@/assets/main.png";
 import { GraduationCap, BookOpen, Briefcase, Award } from "lucide-react";
 
 const timeline = [
-  { year: "1950", title: "Early Life", desc: "Dr. K. G. Lakshmi Narayanappa was born on 3rd August 1950 in Tumakuru, Karnataka. He grew up in a disciplined environment and developed an early interest in education.", icon: BookOpen },
+  { year: "1951", title: "Early Life", desc: "Dr. K. G. Lakshmi Narayanappa was born on 13th January 1951 in Tumakuru, Karnataka. He grew up in a disciplined environment and developed an early interest in education.", icon: BookOpen },
   { year: "", title: "Higher Education", desc: "Completed advanced studies including M.Sc., LL.B., D.B.A., and obtained a Ph.D. (USA) and B.C.E. (Canada), demonstrating a diverse and globally enriched academic background.", icon: GraduationCap },
   { year: "1975–2010", title: "Government Service", desc: "Served in the police department for over three decades (1975–2010), demonstrating dedication, discipline, and commitment to public service.", icon: Briefcase },
   { year: "", title: "Literary Recognition", desc: "Received widespread recognition for contributions to Kannada literature through various awards and honors.", icon: Award },
