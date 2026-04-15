@@ -219,8 +219,8 @@ const ContactSection = () => {
   const contactItems = [
     {
       icon: Mail,
-      text: "contact@drlakshminarayanappa.com",
-      href: "mailto:contact@drlakshminarayanappa.com",
+      text: "kglkestur@gmail.com",
+      href: "mailto:kglkestur@gmail.com",
       label: "Send email",
     },
     {
@@ -229,13 +229,22 @@ const ContactSection = () => {
       href: "tel:+919876543210",
       label: "Call phone number",
     },
+    // {
+    //   icon: MapPin,
+    //   text: "No 46.  C  Street .Fort Oppt Vanivilas hospital Bangalore   - 560002",
+    //   href: "https://www.google.com/maps/embed?pb=...",
+    //   label: "View on Google Maps",
+    //   external: true,
+    // },
+
+
     {
-      icon: MapPin,
-      text: "Bangalore, Karnataka, India",
-      href: "https://www.google.com/maps/search/Bangalore,+Karnataka,+India",
-      label: "View on Google Maps",
-      external: true,
-    },
+  icon: MapPin,
+  text: "No 46, C Street, Fort Opp. Vanivilas Hospital, Bangalore - 560002",
+  href:  "https://www.google.com/maps?q=12.9599974,77.5742452",
+  label: "View on Google Maps",
+  external: true,
+}
   ];
 
   return (
@@ -315,6 +324,9 @@ const ContactSection = () => {
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
               className="bg-navy rounded-xl p-6 border border-gold/20 hover:border-gold/40 transition-all"
             >
+
+
+              
               <div className="flex items-center gap-3 mb-3">
                 <motion.div
                   animate={{ rotate: [0, -10, 10, 0] }}
