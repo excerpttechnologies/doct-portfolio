@@ -231,7 +231,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import heroPortrait from "@/assets/main.webp";
-import badgeImg from "@/assets/badge.webp";
+import badgeImg from "@/assets/badge2.png";
 import { ArrowDown, BookOpen, Mail, Sparkles } from "lucide-react";
 import { useCallback } from "react";
 const typewriterWords = ["Writer", "Thinker", "Public Servant", "Poet", "Scholar"];
@@ -432,9 +432,9 @@ const HeroSection = () => {
         initial={{ opacity: 0, x: -160, rotate: -10 }}
         animate={{ opacity: 1, x: 0, rotate: 0 }}
         transition={{ duration: 1.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="hidden lg:block absolute right-6 xl:right-13 top-[25%] -translate-y-1/2 z-10"
+        className="block absolute right-3 sm:right-6 xl:right-13 top-20 sm:top-[25%] -translate-y-1/2 z-10"
       >
-        <div className="relative w-36 xl:w-44">
+        <div className="relative w-16 sm:w-36 xl:w-44">
           {/* Decorative glass panel sitting behind the badge */}
           <div className="absolute inset-0 -rotate-6 bg-primary-foreground/5 border border-gold/20 rounded-2xl backdrop-blur-sm" />
 
@@ -454,6 +454,10 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </motion.div>
+
+{/* Badge / Award image */}
+
+
 
       {/* Scroll indicator */}
       <motion.button

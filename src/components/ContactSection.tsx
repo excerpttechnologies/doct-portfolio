@@ -226,8 +226,8 @@ const ContactSection = () => {
     },
     {
       icon: Phone,
-      text: "+91 98765 43210",
-      href: "tel:+919876543210",
+      text: "+91 9845757544",
+      href: "tel:+919845757544",
       label: "Call phone number",
     },
     // {
